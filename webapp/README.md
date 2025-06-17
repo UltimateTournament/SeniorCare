@@ -32,13 +32,14 @@ export async function loader() {
   }
 }
 
-export default function IndexPage() {
+export default function IndexPage() { // the page component is always the default export
   const { message } = useLoaderData()
   // ...
   return (
     // ...
     <Outlet />
   )
+}
 ```
 
 Then in `main.tsx`, imported like:
