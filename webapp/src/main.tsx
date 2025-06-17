@@ -3,14 +3,14 @@ import { createBrowserRouter, RouterProvider } from "react-router"
 import "./index.css"
 
 import ReactDOM from "react-dom/client"
-import * as IndexPage from "./routes/index/index"
+import * as RootPage from "./routes/root/root"
 import * as SomePage from "./routes/somepage"
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <IndexPage.default />,
-    loader: IndexPage.loader,
+    element: <RootPage.default />,
+    loader: RootPage.loader,
     children: [
       {
         path: "somepage",

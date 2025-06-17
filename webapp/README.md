@@ -7,7 +7,7 @@ Vite + React + React Router v7 (Data mode) + Vite-PWA
 > [!WARNING]
 > This is subject to change
 
-### Pages and loaders
+### Pages layout
 
 Generally, loaders and actions should be contained within the same page as the route element.
 Then, they are all exported at the same level, so they are easily attached.
@@ -16,15 +16,15 @@ For file paths, you should either use the path name directly if everything is co
 
 ```
 routes/
-  index/
-    index.tsx
-    index.css
+  root/
+    root.tsx
+    root.css
   somepage.tsx
 ```
 
-There are special names like `index` for `/`. Generally, follow remix-style path routing, but they're still manually imported to the router (not using filesystem router). Then, everything relevant for the route (CSS files, loader functions, components) are all colocated in the same folder.
+There are special names like `root` for `/`. Generally, follow remix-style path routing, but they're still manually imported to the router (not using filesystem router). Then, everything relevant for the route (CSS files, loader functions, components) are all colocated in the same folder.
 
-Routes should be like (`routes/index/index.tsx`):
+Routes should be like (`routes/root/root.tsx`):
 ```tsx
 export async function loader() {
   return {
@@ -32,7 +32,7 @@ export async function loader() {
   }
 }
 
-export default function IndexPage() { // the page component is always the default export
+export default function RootPage() { // the page component is always the default export
   const { message } = useLoaderData()
   // ...
   return (
@@ -45,14 +45,14 @@ export default function IndexPage() { // the page component is always the defaul
 Then in `main.tsx`, imported like:
 
 ```ts
-import * as IndexPage from "./routes/index/index"
+import * as RootPage from "./routes/root/root"
 import * as SomePage from "./routes/somepage"
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <IndexPage.default />,
-    loader: IndexPage.loader,
+    element: <RootPage.default />,
+    loader: RootPage.loader,
     children: [
       {
         path: "somepage",
@@ -66,6 +66,12 @@ const router = createBrowserRouter([
 For larger files (where the loader or action is broken out), they can be imported separately.
 
 This naming makes it easy to `cmd+t` find things by signature, and not getting tons of the same `Page()` functions.
+
+### Loaders
+
+Loaders can be "greedy", in the fact that they can ignore eachother exist. Because data is synced in the background and fetched locally, you can query data from a loader without worry about whether a higher route already has it.
+
+That being said, you should definitely utilize `useRouteLoaderData()` where possible to avoid duplicated code.
 
 ## PWA testing
 
