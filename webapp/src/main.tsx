@@ -9,12 +9,12 @@ import * as SomePage from "./routes/somepage"
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <IndexPage.IndexPage />,
+    element: <IndexPage.default />,
     loader: IndexPage.loader,
     children: [
       {
         path: "somepage",
-        element: <SomePage.SomePage />,
+        element: <SomePage.default />,
       },
     ],
   },

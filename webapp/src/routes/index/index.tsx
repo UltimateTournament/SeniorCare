@@ -10,7 +10,7 @@ export async function loader() {
   }
 }
 
-export function IndexPage() {
+export default function IndexPage() {
   const [count, setCount] = useState(0)
   const { message } = useLoaderData()
 

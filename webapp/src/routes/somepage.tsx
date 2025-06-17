@@ -1,3 +1,3 @@
-export function SomePage() {
+export default function SomePage() {
   return <div>SomePage!!!</div>
 }
