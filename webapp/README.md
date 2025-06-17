@@ -25,7 +25,7 @@ routes/
 There are special names like `index` for `/`. Generally, follow remix-style path routing, but they're still manually imported to the router (not using filesystem router). Then, everything relevant for the route (CSS files, loader functions, components) are all colocated in the same folder.
 
 Routes should be like (`routes/index/index.tsx`):
-```ts
+```tsx
 export async function loader() {
   return {
     message: "Hello World",
@@ -35,18 +35,29 @@ export async function loader() {
 export function IndexPage() {
   const { message } = useLoaderData()
   // ...
+  return (
+    // ...
+    <Outlet />
+  )
 ```
 
 Then in `main.tsx`, imported like:
 
 ```ts
-import * as IndexPage from "./routes/index"
+import * as IndexPage from "./routes/index/index"
+import * as SomePage from "./routes/somepage"
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <IndexPage.IndexPage />,
     loader: IndexPage.loader,
+    children: [
+      {
+        path: "somepage",
+        element: <SomePage.SomePage />,
+      },
+    ],
   },
 ])
 ```
