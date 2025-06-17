@@ -3,12 +3,18 @@ import { createBrowserRouter, RouterProvider } from "react-router"
 import "./index.css"
 
 import ReactDOM from "react-dom/client"
-import App from "./App"
+import * as IndexPage from "./routes/index"
+import * as SomePage from "./routes/somepage"
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <IndexPage.IndexPage />,
+    loader: IndexPage.loader,
+  },
+  {
+    path: "/somepage",
+    element: <SomePage.SomePage />,
   },
 ])
 
