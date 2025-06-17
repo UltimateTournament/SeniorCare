@@ -3,18 +3,18 @@ import { createBrowserRouter, RouterProvider } from "react-router"
 import "./index.css"
 
 import ReactDOM from "react-dom/client"
-import * as RootPage from "./routes/root/root"
-import * as SomePage from "./routes/somepage"
+import RootPage, { loader as RootPageLoader } from "./routes/root/root"
+import SomePage from "./routes/somepage"
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootPage.default />,
-    loader: RootPage.loader,
+    element: <RootPage />,
+    loader: RootPageLoader,
     children: [
       {
         path: "somepage",
-        element: <SomePage.default />,
+        element: <SomePage />,
       },
     ],
   },

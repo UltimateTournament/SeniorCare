@@ -24,6 +24,8 @@ routes/
 
 There are special names like `root` for `/`. Generally, follow remix-style path routing, but they're still manually imported to the router (not using filesystem router). Then, everything relevant for the route (CSS files, loader functions, components) are all colocated in the same folder.
 
+Following the normal Remix conventions means that agents and googling will be easier since the difference between the two is minimal (Remix is React Router SSR).
+
 Routes should be like (`routes/root/root.tsx`):
 ```tsx
 export async function loader() {
@@ -45,18 +47,18 @@ export default function RootPage() { // the page component is always the default
 Then in `main.tsx`, imported like:
 
 ```ts
-import * as RootPage from "./routes/root/root"
-import * as SomePage from "./routes/somepage"
+import RootPage, { loader as RootPageLoader } from "./routes/root/root"
+import SomePage from "./routes/somepage"
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootPage.default />,
-    loader: RootPage.loader,
+    element: <RootPage />,
+    loader: RootPageLoader,
     children: [
       {
         path: "somepage",
-        element: <SomePage.default />,
+        element: <SomePage />,
       },
     ],
   },
